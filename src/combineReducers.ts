@@ -176,7 +176,8 @@ export default function combineReducers(reducers: {
 
     let hasChanged = false
     const nextState: StateFromReducersMapObject<typeof reducers> = {}
-    for (let i = 0; i < finalReducerKeys.length; i++) {
+    const finalReducerKeysLength = finalReducerKeys.length
+    for (let i = 0; i < finalReducerKeysLength; i++) {
       const key = finalReducerKeys[i]
       const reducer = finalReducers[key]
       const previousStateForKey = state[key]
@@ -194,8 +195,8 @@ export default function combineReducers(reducers: {
       nextState[key] = nextStateForKey
       hasChanged = hasChanged || nextStateForKey !== previousStateForKey
     }
-    hasChanged =
-      hasChanged || finalReducerKeys.length !== Object.keys(state).length
+    const stateKeysLength = Object.keys(state).length
+    hasChanged = hasChanged || finalReducerKeysLength !== stateKeysLength
     return hasChanged ? nextState : state
   }
 }
